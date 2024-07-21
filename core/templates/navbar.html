@@ -1,0 +1,47 @@
+<!-- Nav Bar Start -->
+<div class="nav">
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+			<a href="#" class="navbar-brand">MENU</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+				<div class="navbar-nav mr-auto">
+					<a href="{% url 'core:index' %}" class="nav-item nav-link">Home</a>
+					<a href="{% url 'core:search' %}" class="nav-item nav-link">Search</a>
+					<a href="{% url 'cart:cart_summary' %}" class="nav-item nav-link">Cart</a>
+					<div class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+						<div class="dropdown-menu">
+							<a href="{% url 'core:category_summary' %}" class="dropdown-item">All Categories</a>
+							<a href="{% url 'core:category' 'Kids-Clothes' %}" class="dropdown-item">Kids Clothes</a>
+							<a href="{% url 'core:category' 'Men-Clothes' %}" class="dropdown-item">Men Clothes</a>
+							<a href="{% url 'core:category' 'Women-Clothes' %}" class="dropdown-item">Women Clothes</a>
+							<a href="{% url 'core:category' 'Cell-Phones' %}" class="dropdown-item">Cell Phones</a>
+							<a href="{% url 'core:category' 'Electronics-&-Accessories' %}" class="dropdown-item">Electronics & Accessories</a>
+						</div>
+					</div>
+					<a href="{% url 'core:contact' %}" class="nav-item nav-link">Contact Us</a>
+				</div>
+				<div class="navbar-nav ml-auto">
+					<div class="nav-item dropdown">
+						<a href="{% url 'core:update_user' %}" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+						<div class="dropdown-menu">
+							{% if user.is_authenticated %}
+							<a href="{% url 'core:update_info' %}" class="dropdown-item">Profile</a>
+							<a href="{% url 'core:update_user' %}" class="dropdown-item">Account</a>
+							<a href="{% url 'core:logout' %}" class="dropdown-item">Logout</a>
+							{% else %}
+							<a href="{% url 'core:login' %}" class="dropdown-item">Login</a>
+							<a href="{% url 'core:register' %}" class="dropdown-item">Register</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+</div>
+<!-- Nav Bar End -->

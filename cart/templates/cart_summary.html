@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}      
+{% block title %}My Cart{% endblock %}
+{% block content %}
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                    <li class="breadcrumb-item active">Cart</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Cart Start -->
+        <div class="cart-page">
+            <div class="container-fluid">
+                <div class="row">
+                    {% if cart_products %}
+                    <div class="col-lg-8">
+                        <div class="cart-page-inner">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Update</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="align-middle">
+                                        {% for product in cart_products %}
+                                        <tr>
+                                            <td>
+                                                <div class="img">
+                                                    <a href="{% url 'core:product-detail' product.id %}"><img src="{{ product.image1.url }}" alt="Image"></a>
+                                                    <p>{{ product.name }}</p>
+                                                </div>
+                                            </td>
+                                            <td>${{ product.price }}</td>
+                                            <td>
+                                                <div class="qty">
+                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                    <input id="select{{ product.id }}" type="number" min="1"
+                                                    {% if quantities %}
+                                                    {% for key, value in quantities.items %}
+                                                        {% if key == product.id|slugify %}
+                                                            value="{{ value }}"
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    {% else %}
+                                                    value="1"
+                                                    {% endif %}
+                                                    >
+                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                </div>
+                                            </td>
+                                            <td><a type="button" data-index="{{ product.id }}" class="btn btn-secondary update-cart"><i class="fas fa-sync"></i></a></td>
+                                            <td><a type="button" data-index="{{ product.id }}" class="btn remove-cart"><i class="fa fa-trash"></i></a></td>
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="col-lg-4">
+                        <div class="cart-page-inner">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="cart-summary">
+                                        <div class="cart-content">
+                                            <h1>Cart Summary</h1>
+                                            <p>Number of Items<span>{{ cart|length }}</span></p>
+                                            <p>Shipping Cost<span>$1</span></p>
+                                            <h2>Grand Total<span>${{ totals }}</span></h2>
+                                        </div>
+                                        <br/>
+                                        <div class="cart-btn">
+                                            <a href="{% url 'payment:checkout' %}" class="btn">Checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
+        <!-- Cart End -->
+        
+
+        <script>
+            $(document).on('click', '.update-cart', function(e){
+                e.preventDefault();
+                var productid = $(this).data('index');
+                var product_qty = $('#select' + productid).val();
+        
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "cart:cart_update" %}',
+                    data: {
+                        product_id: productid,
+                        product_qty: product_qty,
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        action: 'post'
+                    },
+                    success: function(json){
+                        location.reload();
+                    },
+                    error: function(xhr, errmsg, err){
+                        console.error(`Error: ${errmsg}`);
+                    }
+                });
+            });
+        
+            $(document).on('click', '.remove-cart', function(e){
+                e.preventDefault();
+                var productid = $(this).data('index');
+        
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "cart:cart_delete" %}',
+                    data: {
+                        product_id: productid,
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        action: 'post'
+                    },
+                    success: function(json){
+                        location.reload();
+                    },
+                    error: function(xhr, errmsg, err){
+                        console.error(`Error: ${errmsg}`);
+                    }
+                });
+            });
+        </script>
+
+{% endblock %}

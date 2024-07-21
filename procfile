@@ -1,0 +1,2 @@
+web: gunicorn core.wsg --log-file
+web: python manage.py migrate && gunicorn core.wsg

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}      
+{% block title %}Register{% endblock %}
+{% block content %}
+        
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+            <li class="breadcrumb-item active">Register</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<br/>
+
+<!-- Register Start -->
+<div class="register">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">    
+                <div class="register-form">
+					<form method="POST" action="{% url 'core:register' %}">
+                        {% csrf_token %}
+						{{ form.as_p }}
+                    	<div class="row">
+                    	    <div class="col-md-12">
+                    	        <button class="btn">Register</button>
+                    	    </div>
+                    	</div>
+					</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Register End -->
+
+<br/>
+
+{% endblock %}

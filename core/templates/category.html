@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}      
+{% block title %}{{ category }}{% endblock %}     
+{% block content %}
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'core:category_summary' %}">Categories</a></li>
+                    <li class="breadcrumb-item active">{{ category }}</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Product List Start -->
+        <div class="product-view">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            {% for product in products %}
+                            <div class="col-md-4">
+                                <div class="product-item">
+                                    <div class="product-title">
+                                        <a href="{% url 'core:product-detail' product.id %}">{{ product.name }}</a>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-image">
+                                        <a href="{% url 'core:product-detail' product.id %}">
+                                            <img src="{{ product.image1.url }}" alt="Product Image">
+                                        </a>
+                                        <div class="product-action">
+                                            <a href="{% url 'core:product-detail' product.id %}"><i class="fa fa-search"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <h3><span>$</span>{{ product.price }}</h3>
+                                        <a class="btn" href="{% url 'core:product-detail' product.id %}"><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>           
+                    
+                    <!-- Side Bar Start -->
+                    <div class="col-lg-4 sidebar">
+                        <div class="sidebar-widget category">
+                            <h2 class="title">Category</h2>
+                            <nav class="navbar bg-light">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'core:category' 'Women-Clothes' %}"><i class="fa fa-female"></i>Women Clothes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'core:category' 'Kids-Clothes' %}"><i class="fa fa-child"></i>Kids Clothes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'core:category' 'Men-Clothes' %}"><i class="fa fa-tshirt"></i>Men Clothes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'core:category' 'Cell-Phones' %}"><i class="fa fa-mobile-alt"></i>Cell Phones</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'core:category' 'Electronics-&-Accessories' %}"><i class="fa fa-microchip"></i>Electronics & Accessories</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                        <div class="sidebar-widget widget-slider">
+                            <div class="sidebar-slider normal-slider">
+                                {% for product in products %}
+                                <div class="product-item">
+                                    <div class="product-title">
+                                        <a href="#">{{ product.name }}</a>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-image">
+                                        <a href="{% url 'core:product-detail' product.id %}">
+                                            <img src="{{ product.image1.url }}" alt="Product Image">
+                                        </a>
+                                        <div class="product-action">
+                                            <a href="{% url 'core:product-detail' product.id %}"><i class="fa fa-search"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <h3><span>$</span>{{ product.price }}</h3>
+                                        <a class="btn" href="{% url 'core:product-detail' product.id %}"><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side Bar End -->
+                </div>
+            </div>
+        </div>
+        <!-- Product List End -->  
+        
+        <!-- Brand Start -->
+        <div class="brand">
+            <div class="container-fluid">
+                <div class="brand-slider">
+                    <div class="brand-item"><img src="{% static 'store/img/brand-1.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'store/img/brand-2.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'store/img/brand-3.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'store/img/brand-4.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'store/img/brand-5.png' %}" alt=""></div>
+                    <div class="brand-item"><img src="{% static 'store/img/brand-6.png' %}" alt=""></div>
+                </div>
+            </div>
+        </div>
+        <!-- Brand End -->
+        
+{% endblock %}

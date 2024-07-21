@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}      
+{% block title %}Categories{% endblock %}
+{% block content %}
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                    <li class="breadcrumb-item active">Categories</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+		<br/><br/>
+		<!-- Category Start-->
+        <div class="category">
+            <div class="container-fluid">
+                <div class="row">
+					{% for category in categories %}
+                    <div class="col-md-3">
+                        <div class="category-item ch-400">
+                            <img src="{{ category.image.url }}" />
+                            <a class="category-name" href="{% url 'core:category' category %}">
+                                <p><h2><center>{{ category }}</center></h2></p>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Category End-->
+
+{% endblock %}

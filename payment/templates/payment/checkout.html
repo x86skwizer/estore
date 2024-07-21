@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}      
+{% block title %}Checkout{% endblock %}
+{% block content %}
+
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                    <li class="breadcrumb-item active">Checkout</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+        
+        <!-- Checkout Start -->
+        <div class="checkout">
+            <div class="container-fluid"> 
+                <div class="row">
+                    {% if cart_products %}
+                    <div class="col-lg-8">
+                        <div class="cart-page-inner">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="align-middle">
+                                        {% for product in cart_products %}
+                                        <tr>
+                                            <td>
+                                                <div class="img">
+                                                    <a href="{% url 'core:product-detail' product.id %}"><img src="{{ product.image1.url }}" alt="Image" style="width: 150px; height: 150px;"></a>
+                                                    <p><strong>{{ product.name }}</strong></p>
+                                                </div>
+                                            </td>
+                                            <td>${{ product.price }}</td>
+                                            <td>
+                                                <div class="qty">
+                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                    <input id="select{{ product.id }}" type="number" min="1"
+                                                    {% if quantities %}
+                                                    {% for key, value in quantities.items %}
+                                                        {% if key == product.id|slugify %}
+                                                            value="{{ value }}"
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    {% else %}
+                                                    value="1"
+                                                    {% endif %}
+                                                    >
+                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="checkout-btn">
+                            <a href="{% url 'cart:cart_summary' %}" class="btn"><i class="fa fa-shopping-cart"></i>&nbsp;Update Cart</a>
+                        </div>
+                        <div class="register-form">
+                            <form method="POST" action="{% url 'payment:billing_info' %}">
+                                <br/><h4><strong>Shipping Information</strong></h4><br/>
+                                {% csrf_token %}
+                                {{ shipping_form.as_p }}
+                                <div class="checkout-payment">
+                                    <div class="checkout-btn">
+                                        <button type="submit" class="btn">Continue Billing</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <br/>
+                    </div>
+                    {% endif %}
+                    <div class="col-lg-4">
+                        <div class="checkout-inner">
+                            <div class="checkout-summary">
+                                <h1>Cart Total</h1>
+                                <p class="sub-total">Number of Items<span>{{ cart|length }}</span></p>
+                                <p class="ship-cost">Shipping Cost<span>$1</span></p>
+                                <h2>Grand Total<span>${{ totals }}</span></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Checkout End -->
+        
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}      
+{% block title %}Update Info{% endblock %}
+{% block content %}
+        
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+            <li class="breadcrumb-item active">Update Info</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<br/>
+
+<!-- Update Info Start -->
+<div class="register">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">    
+                <div class="register-form">
+					<form method="POST" action="{% url 'core:update_info' %}">
+                        <h4><strong>Billing Information</strong></h4><br/>
+                        {% csrf_token %}
+						{{ form.as_p }}
+                        <br/><h4><strong>Shipping Information</strong></h4><br/>
+						{{ shipping_form.as_p }}
+                        <button type="submit" class="btn">Update Profile</button>
+					</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Update Info End -->
+ 
+<br/><br/>
+
+{% endblock %}

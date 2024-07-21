@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}      
+{% block title %}My Account{% endblock %}
+{% block content %}
+        
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                    <li class="breadcrumb-item active">Account</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+        <!-- My Account Start -->
+        <div class="my-account">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Account Details</a>
+                            <a class="nav-link" href="{% url 'core:update_password' %}"><i class="fa fa-lock"></i>Update Password</a>
+                            {% if user.is_superuser %}
+                            <a class="nav-link" href="{% url 'payment:shipped_dash' %}"><i class="fa fa fa-truck"></i>Shipped Orders</a>
+                            <a class="nav-link" href="{% url 'payment:not_shipped_dash' %}"><i class="fa fa-archive"></i>Unshipped Orders</a>
+                            {% endif %}
+                            <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Orders</a>
+                            <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i>Payment Method</a>
+                            <a class="nav-link" href="{% url 'core:logout' %}"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
+                                <form method="POST" action="{% url 'core:update_user' %}">
+                                    {% csrf_token %}
+                                    {{ user_form.as_p }}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn">Update Profile</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Product</th>
+                                                <th>Date</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Product Name</td>
+                                                <td>01 Jan 2020</td>
+                                                <td>$99</td>
+                                                <td>Approved</td>
+                                                <td><button class="btn">View</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
+                                <h4>Payment Method</h4>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque.
+                                </p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- My Account End -->
+        <br/><br/>
+        <br/><br/>
+        <br/><br/>
+        
+{% endblock %}
