@@ -29,8 +29,8 @@ SECRET_KEY = 'django-insecure-a46y=+u#!p+drx#*)&qtfjp4ckutu2yo*umgnlv(dk)9l=wi=6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['belgua-production.up.railway.app', 'https://belgua-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['https://belgua-production.up.railway.app']
+ALLOWED_HOSTS = ['https://belgua.net', 'belgua-production.up.railway.app', 'https://belgua-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://belgua.net', 'https://belgua-production.up.railway.app']
 
 # Application definition
 
