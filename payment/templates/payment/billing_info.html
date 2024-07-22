@@ -88,6 +88,10 @@
                             </form>
                         </div>
                         <br/>
+                        <div class="register-form">
+                        {{ paypal_form.render }}
+                        </div>
+                        <br/>
 						<div class="register-form">
                             <form method="POST" action="{% url 'payment:process_order' %}">
                                 <br/><h4><strong>Billing Information</strong></h4><br/>
