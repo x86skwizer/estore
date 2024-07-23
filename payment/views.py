@@ -197,27 +197,26 @@ def orders(request, pk):
 # Stripe
 def create_checkout_session(request):
     # Initialize the cart
-    cart = Cart(request)
-    cart_products = cart.get_prods()
-    quantities = cart.get_quants()
-
-    # Create line items for each product in the cart
-    line_items = []
-    for product, quantity in zip(cart_products, quantities):
-        line_item = {
+	cart = Cart(request)
+	cart_products = cart.get_prods()
+	quantities = cart.get_quants()
+	# Create line items for each product in the cart
+	line_items = []
+	for product in cart_products:
+		line_item = {
             'price_data': {
                 'currency': 'usd',
                 'product_data': {
                     'name': product.name,  # Assuming product has a name attribute
                 },
-                'unit_amount': int(product.price * 100),  # Amount in cents
+                'unit_amount': int(product.price),  # Amount in cents
             },
-            'quantity': quantity,
+            'quantity': product.quantity,
         }
-        line_items.append(line_item)
+		line_items.append(line_item)
 
     # Create a new Checkout Session
-    session = stripe.checkout.Session.create(
+	session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=line_items,
         mode='payment',
@@ -226,7 +225,7 @@ def create_checkout_session(request):
     )
 
     # Redirect to the Stripe Checkout page
-    return redirect(session.url, code=303)
+	return redirect(session.url, code=303)
 
 def stripe_checkout(request):
 	return render(request, "payment/stripe_checkout.html", {})
