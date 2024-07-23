@@ -211,7 +211,7 @@ def create_checkout_session(request):
                 },
                 'unit_amount': int(product.price),  # Amount in cents
             },
-            'quantity': product.quantity,
+            'quantity': product.quantities,
         }
 		line_items.append(line_item)
 
