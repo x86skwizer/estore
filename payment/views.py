@@ -200,9 +200,10 @@ def create_checkout_session(request):
 	cart = Cart(request)
 	cart_products = cart.get_prods()
 	quantities = cart.get_quants()
-	# Create line items for each product in the cart
+
+    # Create line items for each product in the cart
 	line_items = []
-	for product in cart_products:
+	for product, quantity in zip(cart_products, quantities):
 		line_item = {
             'price_data': {
                 'currency': 'usd',
@@ -211,6 +212,7 @@ def create_checkout_session(request):
                 },
                 'unit_amount': int(product.price),  # Amount in cents
             },
+            'quantity': quantity,
         }
 		line_items.append(line_item)
 
