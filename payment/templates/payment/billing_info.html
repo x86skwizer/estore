@@ -89,17 +89,11 @@
                         </div>
                         <br/>
 						<div class="register-form">
-                            <form method="POST" action="{% url 'payment:process_order' %}">
-                                <br/><h4><strong>Billing Information</strong></h4><br/>
-                                {% csrf_token %}
-                                {{ billing_form.as_p }}
-                                <div class="checkout-payment">
-                                    <div class="checkout-btn">
-                                        <button type="submit" class="btn">Place Order</button>
-                                    </div>
+                            <div class="checkout-payment">
+                                <div class="checkout-btn">
+                                    <a href="{% url 'payment:create_checkout_session' %}" type="submit" class="btn">Place Order</a>
                                 </div>
-								<br/>
-                            </form>
+                            </div><br/>
                         </div>
                     </div>
                     {% endif %}
