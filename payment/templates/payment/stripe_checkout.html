@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}      
-{% block title %}Payment Failed{% endblock %}
+{% block title %}Stripe Checkout{% endblock %}
 {% block content %}
 
         <!-- Breadcrumb Start -->
@@ -8,13 +8,18 @@
             <div class="container-fluid">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
-                    <li class="breadcrumb-item active">Payment Failed</li>
+                    <li class="breadcrumb-item active">Stripe Checkout</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-        <h1>Payment Failed</h1>
-        <p>Your payment was not completed. Please try again.</p>
+        <h1>Stripe Checkout</h1>
+        <p>
+            <form action="{% url 'payment:create_checkout_session' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Pay Now</button>
+            </form>
+        </p>
         
 {% endblock %}

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a46y=+u#!p+drx#*)&qtfjp4ckutu2yo*umgnlv(dk)9l=wi=6'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -166,7 +166,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'yassineamrire00@gmail.com'
-EMAIL_HOST_PASSWORD = 'ndhw ohkt meyp xdoo'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False
 
@@ -181,3 +181,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # PAYPAL_TEST = True
 
 # PAYPAL_RECEIVER_EMAIL = 'sb-tpubb31825741@business.example.com' # Business Sandbox account
+STRIPE_PUBLIC_KEY = os.environ['STRIPE_PUBLIC_KEY']
+STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']

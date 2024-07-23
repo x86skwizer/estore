@@ -11,6 +11,14 @@ import datetime
 # from paypal.standard.forms import PayPalPaymentsForm
 # from django.conf import settings
 # import uuid # unique user id for duplictate orders
+# Stripe
+import stripe
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def payment_success(request):
 	return render(request, "payment/payment_success.html", {})
@@ -185,3 +193,40 @@ def orders(request, pk):
 	else:
 		messages.success(request, "Access Denied")
 		return redirect('core:index')
+	
+# Stripe
+def create_checkout_session(request):
+    # Initialize the cart
+    cart = Cart(request)
+    cart_products = cart.get_prods()
+    quantities = cart.get_quants()
+
+    # Create line items for each product in the cart
+    line_items = []
+    for product, quantity in zip(cart_products, quantities):
+        line_item = {
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': product.name,  # Assuming product has a name attribute
+                },
+                'unit_amount': int(product.price * 100),  # Amount in cents
+            },
+            'quantity': quantity,
+        }
+        line_items.append(line_item)
+
+    # Create a new Checkout Session
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        success_url=request.build_absolute_uri(reverse('payment:payment_success')),
+        cancel_url=request.build_absolute_uri(reverse('payment:payment_failed')),
+    )
+
+    # Redirect to the Stripe Checkout page
+    return redirect(session.url, code=303)
+
+def stripe_checkout(request):
+	return render(request, "payment/stripe_checkout.html", {})
