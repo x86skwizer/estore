@@ -15,6 +15,7 @@ import os
 # from dotenv import load_dotenv
 
 # load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,6 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['https://belgua.net', 'belgua.net']
 CSRF_TRUSTED_ORIGINS = ['https://belgua.net']
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
 	'cart',
 	'payment',
 	'whitenoise.runserver_nostatic',
-	'paypal.standard.ipn',
+	# 'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +116,8 @@ DATABASES = {
     }
 }
 
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -152,6 +156,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = 'media/'
@@ -165,8 +170,6 @@ EMAIL_HOST_PASSWORD = 'ndhw ohkt meyp xdoo'
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False
 
-# White noise static stuff
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -174,6 +177,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Add paypal settings
-PAYPAL_TEST = True # Set sandbox to true
+# Set sandbox to true
+# PAYPAL_TEST = True
 
-PAYPAL_RECEIVER_EMAIL = 'sb-tpubb31825741@business.example.com' # Business Sandbox account
+# PAYPAL_RECEIVER_EMAIL = 'sb-tpubb31825741@business.example.com' # Business Sandbox account

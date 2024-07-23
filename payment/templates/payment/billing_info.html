@@ -88,10 +88,6 @@
                             </form>
                         </div>
                         <br/>
-                        <div class="register-form">
-                        {{ paypal_form.render }}
-                        </div>
-                        <br/>
 						<div class="register-form">
                             <form method="POST" action="{% url 'payment:process_order' %}">
                                 <br/><h4><strong>Billing Information</strong></h4><br/>
@@ -116,10 +112,19 @@
                                 <h2>Grand Total<span>${{ totals }}</span></h2>
                             </div>
                         </div>
+                        <div class="checkout-inner">
+                            <div class="checkout-summary">
+                                <center>
+                                    {% csrf_token %}
+                                    {{ paypal_form.render }}
+                                </center>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Checkout End -->
+       
         
 {% endblock %}
