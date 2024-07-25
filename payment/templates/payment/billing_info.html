@@ -14,111 +14,97 @@
         </div>
         <!-- Breadcrumb End -->
         
-        <!-- Checkout Start -->
-        <div class="checkout">
-            <div class="container-fluid"> 
-                <div class="row">
-                    {% if cart_products %}
-                    <div class="col-lg-8">
-                        <div class="cart-page-inner">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="align-middle">
-                                        {% for product in cart_products %}
-                                        <tr>
-                                            <td>
-                                                <div class="img">
-                                                    <a href="{% url 'core:product-detail' product.id %}"><img src="{{ product.image1.url }}" alt="Image" style="width: 150px; height: 150px;"></a>
-                                                    <p><strong>{{ product.name }}</strong></p>
-                                                </div>
-                                            </td>
-                                            <td>${{ product.price }}</td>
-                                            <td>
-                                                <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input id="select{{ product.id }}" type="number" min="1"
-                                                    {% if quantities %}
-                                                    {% for key, value in quantities.items %}
-                                                        {% if key == product.id|slugify %}
-                                                            value="{{ value }}"
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                    {% else %}
-                                                    value="1"
+       <!-- Checkout Start -->
+       <div class="checkout">
+        <div class="container-fluid"> 
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="checkout-payment">
+                        <h1>Cart Items</h1>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-middle">
+                                    {% if cart_products %}
+                                    {% for product in cart_products %}
+                                    <tr>
+                                        <td>
+                                            <div class="img">
+                                                <a href="{% url 'core:product-detail' product.id %}"><img src="{{ product.image1.url }}" alt="Image" style="width: 150px; height: 150px;"></a>
+                                                <p><strong>{{ product.name }}</strong></p>
+                                            </div>
+                                        </td>
+                                        <td>${{ product.price }}</td>
+                                        <td>
+                                            <div class="qty">
+                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <input id="select{{ product.id }}" type="number" min="1"
+                                                {% if quantities %}
+                                                {% for key, value in quantities.items %}
+                                                    {% if key == product.id|slugify %}
+                                                        value="{{ value }}"
                                                     {% endif %}
-                                                    >
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                                                {% endfor %}
+                                                {% else %}
+                                                value="1"
+                                                {% endif %}
+                                                >
+                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                            </table>
                         </div>
-						<div class="checkout-payment">
-							<div class="checkout-btn">
-								<a href="{% url 'cart:cart_summary' %}" class="btn"><i class="fa fa-shopping-cart"></i>&nbsp;Update Cart</a>
-							</div>
-						</div>
-                        <div class="register-form">
-                            <form method="POST" action="{% url 'payment:billing_info' %}">
-                                <br/><h4><strong>Shipping Information</strong></h4><br/>
-                                {% csrf_token %}
-                                <strong>Name: </strong>{{ shipping_info.shipping_full_name }}<br/>
-                                <strong>Email: </strong>{{ shipping_info.shipping_email }}<br/>
-                                <strong>Address 1: </strong>{{ shipping_info.shipping_address1 }}<br/>
-                                <strong>Address 2: </strong>{{ shipping_info.shipping_address2 }}<br/>
-                                <strong>City: </strong>{{ shipping_info.shipping_city }}<br/>
-                                <strong>State: </strong>{{ shipping_info.shipping_state }}<br/>
-								<strong>ZipCode: </strong>{{ shipping_info.shipping_zipcode }}<br/>
-                                <strong>Country: </strong>{{ shipping_info.shipping_country }}<br/><br/>
-                                <div class="checkout-payment">
-                                    <div class="checkout-btn">
-                                        <a href="{% url 'payment:checkout' %}" type="submit" class="btn">Update Shipping</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <br/>
-						<div class="register-form">
-                            <div class="checkout-payment">
-                                <div class="checkout-btn">
-                                    <a href="{% url 'payment:create_checkout_session' %}" type="submit" class="btn">Place Order</a>
-                                </div>
-                            </div><br/>
+                        <div class="checkout-btn">
+                            <a href="{% url 'payment:create_checkout_session' %}"><button>Place Order</button></a>
                         </div>
                     </div>
-                    {% endif %}
-                    <div class="col-lg-4">
-                        <div class="checkout-inner">
-                            <div class="checkout-summary">
+                </div>
+                <div class="col-lg-4">
+                    <div class="checkout-inner">
+                        <div class="checkout-payment">
+                            <div class="payment-methods">
                                 <h1>Cart Total</h1>
-                                <p class="sub-total">Number of Items<span>{{ cart|length }}</span></p>
-                                <p class="ship-cost">Shipping Cost<span>$1</span></p>
-                                <h2>Grand Total<span>${{ totals }}</span></h2>
+                                <p class="sub-total">Number of Items<span>&nbsp;{{ cart|length }}</span></p>
+                            <p class="ship-cost">Shipping Cost<span>&nbsp;$1</span></p>
+                            <h2>Grand Total<span>&nbsp;${{ totals }}</span></h2>
+                            </div>
+                            <div class="checkout-btn">
+                                <a href="{% url 'cart:cart_summary' %}"><button>Update Cart</button></a>
                             </div>
                         </div>
-                        <div class="checkout-inner">
-                            <div class="checkout-summary">
-                                <center>
-                                    {% csrf_token %}
-                                    {{ paypal_form.render }}
-                                </center>
+                        <br/><br/><br/>
+                        <div class="checkout-payment">
+                            <div class="payment-methods">
+                                <h1>Shipping Info</h1>
+                                <b>Name: </b><br/><mark>{{ shipping_info.shipping_full_name }}</mark><br/><br/>
+                                <b>Email: </b><br/><mark>{{ shipping_info.shipping_email }}</mark><br/><br/>
+                                <b>Address 1: </b><br/><mark>{{ shipping_info.shipping_address1 }}</mark><br/><br/>
+                                <b>Address 2: </b><br/><mark>{{ shipping_info.shipping_address2 }}</mark><br/><br/>
+                                <b>City: </b><br/><mark>{{ shipping_info.shipping_city }}</mark><br/><br/>
+                                <b>State: </b><br/><mark>{{ shipping_info.shipping_state }}</mark><br/><br/>
+                                <b>ZipCode: </b><br/><mark>{{ shipping_info.shipping_zipcode }}</mark><br/><br/>
+                                <b>Country: </b><br/><mark>{{ shipping_info.shipping_country }}</mark><br/><br/>
+                            </div>
+                            <div class="checkout-btn">
+                                <a href="{% url 'payment:checkout' %}"><button>Update Info</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Checkout End -->
+    </div>
+    <!-- Checkout End -->
        
         
 {% endblock %}

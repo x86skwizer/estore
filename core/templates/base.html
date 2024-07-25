@@ -58,7 +58,11 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <h1>YOUR TRUST IS OUR PRIORITY</h1>
+							<form method="POST" action="{% url 'core:search' %}">
+								{% csrf_token %}
+                            	<input type="text" class="form-control" name="searched" placeholder="Search">
+                            	<button><i class="fa fa-search"></i></button>
+							</form>
                         </div>
                     </div>
                     <div class="col-md-3">

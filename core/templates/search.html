@@ -14,29 +14,6 @@
         </div>
         
 
-		<div class="product-view">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="product-view-top">
-                                    <div class="col-md-12">
-										<form method="POST" action="{% url 'core:search' %}">
-											{% csrf_token %}
-                                        	<div class="product-search">
-                                            	<input type="text" class="form-control" name="searched" placeholder="Search For Products">
-                                            	<button type="submit" class="btn"><i class="fa fa-search"></i></button>
-                                        	</div>
-										</form>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 
 		{% if searched %}
