@@ -177,14 +177,10 @@ def orders(request, pk):
 
 # Stripe
 def create_checkout_session(request):
-    # Initialize the cart
-	cart = Cart(request)
-	# Get ids from cart
-	products = cart.get_prods()
+	cart = Cart(request) # Initialize the cart
+	products = cart.get_prods() # Get ids from cart
 	quantities = cart.get_quants()
-
-    # Create line items for each product in the cart
-	line_items = []
+	line_items = [] # Create line items for each product in the cart
 	for product in products:
 		product_id_str = str(product.id)
 		quantity = quantities.get(product_id_str, 0)
@@ -199,18 +195,14 @@ def create_checkout_session(request):
             'quantity': quantity,
         }
 		line_items.append(line_item)
-
-    # Create a new Checkout Session
-	session = stripe.checkout.Session.create(
+	session = stripe.checkout.Session.create( # Create a new Checkout Session
         payment_method_types=['card'],
         line_items=line_items,
         mode='payment',
         success_url=request.build_absolute_uri(reverse('payment:payment_success')),
         cancel_url=request.build_absolute_uri(reverse('payment:payment_failed')),
     )
-
-    # Redirect to the Stripe Checkout page
-	return redirect(session.url, code=303)
+	return redirect(session.url, code=303) # Redirect to the Stripe Checkout page
 
 def stripe_checkout(request):
 	return render(request, "payment/stripe_checkout.html", {})

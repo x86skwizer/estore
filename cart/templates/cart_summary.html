@@ -63,7 +63,6 @@
                                             <td><a type="button" data-index="{{ product.id }}" class="btn remove-cart"><i class="fa fa-trash"></i></a></td>
                                         </tr>
                                         {% endfor %}
-
                                     </tbody>
                                 </table>
                             </div>
@@ -84,7 +83,11 @@
                                         <br/>
                                         <div class="checkout-payment">
                                             <div class="checkout-btn">
+                                                {% if user.is_authenticated %}
                                                 <a href="{% url 'payment:checkout' %}"><button type="submit" class="btn">Checkout</button></a>
+                                                {% else %}
+                                                <a href="{% url 'core:register' %}"><button type="submit" class="btn">Checkout</button></a>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
