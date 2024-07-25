@@ -45,7 +45,7 @@
                                             <td>
                                                 <div class="qty">
                                                     <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input id="select{{ product.id }}" type="number" min="1"
+                                                    <input id="select{{ product.id }}" type="number" min="1" max="100"
                                                     {% if quantities %}
                                                     {% for key, value in quantities.items %}
                                                         {% if key == product.id|slugify %}
@@ -71,19 +71,21 @@
                     </div>
                     {% endif %}
                     <div class="col-lg-4">
-                        <div class="cart-page-inner">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="cart-summary">
-                                        <div class="cart-content">
-                                            <h1>Cart Summary</h1>
-                                            <p>Number of Items<span>{{ cart|length }}</span></p>
-                                            <p>Shipping Cost<span>$1</span></p>
-                                            <h2>Grand Total<span>${{ totals }}</span></h2>
+                        <div class="checkout">
+                            <div class="container-fluid"> 
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="register-form">
+                                            <h1>My Cart</h1>
+                                            <p>Number of Items<span>&nbsp;{{ cart|length }}</span></p>
+                                            <p>Shipping Cost<span>&nbsp;$1</span></p>
+                                            <h2>Grand Total<span>&nbsp;${{ totals }}</span></h2>
                                         </div>
                                         <br/>
-                                        <div class="checkout-btn">
-                                            <a href="{% url 'payment:checkout' %}" class="btn"><button>Checkout</button></a>
+                                        <div class="checkout-payment">
+                                            <div class="checkout-btn">
+                                                <a href="{% url 'payment:checkout' %}"><button type="submit" class="btn">Checkout</button></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
