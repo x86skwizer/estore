@@ -11,12 +11,12 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = "12345"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
 
 # Application definition
 
@@ -136,7 +136,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'yassineamrire00@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+# EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False
 
@@ -149,5 +149,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # PAYPAL_TEST = True
 
 # PAYPAL_RECEIVER_EMAIL = 'sb-tpubb31825741@business.example.com' # Business Sandbox account
-# STRIPE_PUBLIC_KEY = os.environ['STRIPE_PUBLIC_KEY']
-# STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
+STRIPE_PUBLIC_KEY = "12345"
+STRIPE_SECRET_KEY = "12345"
