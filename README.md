@@ -1,129 +1,107 @@
 # Django E-Commerce Project
 
-This is a Django-based E-Commerce web application. It includes a cart system, payment processing, user authentication, and product/category management. This project demonstrates how to create a fully functioning online store with integration for Stripe payments, user management, and order fulfillment.
+A **fully-featured** Django E-Commerce application with shopping cart functionality, secure payment integration (Stripe), user authentication, and product/category management. This repository demonstrates a complete online store, including product searches, order tracking, shipping dashboard, and a responsive front-end.
 
 ---
 
 ## Table of Contents
-- [Features](#features)
-- [Directory Structure](#directory-structure)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
+
+1. [Features](#features)
+2. [Directory Structure](#directory-structure)
+3. [Getting Started](#getting-started)
+4. [Usage](#usage)
+5. [Deployment](#deployment)
+6. [Contributing](#contributing)
+7. [License](#license)
 
 ---
 
 ## Features
 
 1. **User Authentication**  
-   - Users can register, log in, and log out.  
-   - Profile management (via `Profile` model) is integrated with Django’s `User` model.
+   - Register, log in/out, update profile info.  
+   - Extended `Profile` model linked with Django’s `User`.
 
 2. **Product & Category Management**  
-   - Admin users can create, update, and delete products.  
-   - Categories allow users to browse products by type.
+   - Create, update, and delete products/categories via Django admin.  
+   - Clear category-based navigation in the user interface.
 
 3. **Shopping Cart**  
-   - Add, remove, and update items in the cart.  
-   - Cart context is available site-wide via Django context processors.
+   - Cart context processor for site-wide cart access.  
+   - Add, remove, and update item quantities on the fly.
 
 4. **Stripe Payment Integration**  
-   - Users can checkout with Stripe.  
-   - Includes success and failure pages, along with custom order handling in the admin dashboard.
+   - Seamless checkout with Stripe.  
+   - Payment success/failure pages, plus a fully trackable ordering system.
 
-5. **Order Management**  
-   - Orders and OrderItems are tracked in the admin area.  
-   - Track shipping status with separate pages for shipped/not shipped orders.
+5. **Order Management & Shipping**  
+   - Admin dashboard for shipped/unshipped orders.  
+   - Automatically updates shipping status and records order details.
 
-6. **Responsive Templates**  
-   - `base.html` used as a global layout.  
-   - A variety of templates for product detail, searching, checkout, and more.
+6. **Responsive UI**  
+   - `base.html` layout with partials (e.g., `navbar.html`).  
+   - Integrates slick sliders, category highlights, and an overall modern design.
 
 ---
 
 ## Directory Structure
 
-Below is an overview of the project’s file structure:
+Below is a high-level overview of the project’s structure:
 
 ```
 ├── cart
 │   ├── cart.py
 │   ├── context_processors.py
-│   ├── views.py
 │   ├── urls.py
-│   ├── apps.py
-│   ├── admin.py
+│   ├── views.py
 │   ├── models.py
 │   └── templates
 │       └── cart_summary.html
 ├── core
-│   ├── views.py
-│   ├── urls.py
-│   ├── apps.py
-│   ├── admin.py
-│   ├── models.py
 │   ├── forms.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── models.py
 │   └── templates
 │       ├── base.html
 │       ├── category.html
-│       ├── category_summary.html
-│       ├── contact.html
-│       ├── index.html
-│       ├── login.html
-│       ├── my-account.html
-│       ├── navbar.html
 │       ├── product-detail.html
-│       ├── register.html
-│       ├── search.html
-│       ├── update_info.html
-│       └── update_password.html
+│       └── ...
 ├── payment
-│   ├── views.py
 │   ├── urls.py
-│   ├── apps.py
-│   ├── admin.py
+│   ├── views.py
 │   ├── models.py
-│   ├── forms.py
 │   └── templates
 │       └── payment
-│           ├── billing_info.html
 │           ├── checkout.html
-│           ├── not_shipped_dash.html
-│           ├── orders.html
 │           ├── payment_success.html
-│           ├── process_failed.html
-│           ├── process_order.html
-│           ├── shipped_dash.html
-│           └── stripe_checkout.html
+│           └── ...
 ├── store
 │   ├── settings.py
 │   ├── urls.py
 │   ├── wsgi.py
 │   └── asgi.py
-├── manage.py
-├── requirements.txt
-├── runtime.txt
-├── procfile
 ├── static
 │   └── store
 │       ├── css
-│       ├── img
 │       ├── js
 │       └── lib
 ├── media
 │   └── uploads
 │       ├── category
 │       └── product
-└── db.sqlite3
+├── manage.py
+├── requirements.txt
+├── runtime.txt
+└── procfile
 ```
 
 ### Notable Files
 
-- **`manage.py`**: Django’s CLI tool for migrations, running the server, etc.  
-- **`requirements.txt`**: Lists Python dependencies.  
-- **`runtime.txt`**: Specifies the Python runtime version.  
-- **`Procfile`**: Used for deploying to platforms like Heroku (Gunicorn server).  
+- **`manage.py`**: Django’s CLI tool for database migrations, running the dev server, etc.
+- **`requirements.txt`**: Contains project dependencies.
+- **`runtime.txt`**: Specifies Python version (useful for deployment on Heroku).
+- **`Procfile`**: Used by Heroku to run the Gunicorn server for this Django app.
 
 ---
 
@@ -132,7 +110,7 @@ Below is an overview of the project’s file structure:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/django-ecommerce.git
+   git clone https://github.com/x86skwizer/django-ecommerce.git
    cd django-ecommerce
    ```
 
@@ -140,8 +118,8 @@ Below is an overview of the project’s file structure:
 
    ```bash
    python -m venv venv
-   source venv/bin/activate   # on Mac/Linux
-   venv\Scripts\activate      # on Windows
+   source venv/bin/activate        # Mac/Linux
+   venv\Scripts\activate           # Windows
    ```
 
 3. **Install Dependencies**
@@ -150,10 +128,11 @@ Below is an overview of the project’s file structure:
    pip install -r requirements.txt
    ```
 
-4. **Environment Variables**  
-   For Stripe payments, you may need environment variables like `STRIPE_SECRET_KEY` and `STRIPE_PUBLISHABLE_KEY`. If required, add them to a `.env` file or configure them in your hosting environment.
+4. **Configure Environment Variables (Stripe, etc.)**  
+   - If you’re using Stripe locally, set `STRIPE_SECRET_KEY` and `STRIPE_PUBLIC_KEY` in a `.env` file or in your shell.  
+   - For email sending, ensure you have the correct SMTP settings.
 
-5. **Run Migrations**
+5. **Apply Migrations**
 
    ```bash
    python manage.py migrate
@@ -171,58 +150,46 @@ Below is an overview of the project’s file structure:
    python manage.py runserver
    ```
 
-8. **Access the Site**  
-   Visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser.  
+8. **Access the Application**  
+   - Frontend: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)  
    - Admin Panel: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
 ---
 
 ## Usage
 
-1. **Local Development**  
-   - Make changes in your code.
-   - Use `python manage.py runserver` to start the local dev server.
-   - Visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to see changes.
-
-2. **Adding Products & Categories**  
-   - Log in to the Django admin at `/admin/`.
-   - Create new `Category` and `Product` entries.
-
-3. **Managing Orders**  
-   - The `payment` app handles orders, order items, and shipping.  
-   - View or modify orders via the Django admin or the custom dashboards (`shipped_dash`, `not_shipped_dash`).
-
-4. **Shopping Cart**  
-   - The cart app provides a site-wide shopping cart (`/cart/urls.py`).
-
-5. **Stripe Payment**  
-   - Update your Stripe API keys in the Django settings or environment variables.  
-   - The checkout flow is handled by `payment/views.py`.
+- **Local Development**: Make your changes, then run `python manage.py runserver`.  
+- **Managing Products**: Create/edit products and categories via the admin panel.  
+- **Shopping Cart**: Browse and add items to your cart.  
+- **Order/Shipping**: If you’re logged in as an admin or superuser, track shipped/unshipped orders in the payment dashboards.  
+- **Stripe Checkout**: Test payments locally or in staging by configuring Stripe keys.
 
 ---
 
 ## Deployment
 
 1. **Heroku Example**  
-   - Make sure you have the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed.
-   - Run `heroku create`.
-   - Add your environment variables on Heroku (e.g., `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`).
-   - Push to Heroku:
+   - Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).  
+   - Run `heroku create` to create a new app.  
+   - Set environment variables (Stripe keys, etc.) on Heroku.  
+   - Push the repository:
+
      ```bash
      git push heroku main
      ```
-   - Heroku will use `Procfile` to run the Gunicorn server and apply migrations automatically if configured properly.
+
+   - Heroku will read the `Procfile` and use Gunicorn to serve the application.
 
 2. **Other Platforms**  
-   - Ensure your server can run a Python/Django stack with a WSGI server.  
-   - Configure environment variables and static file serving (`whitenoise` or similar).
+   - Configure your environment variables and static files.  
+   - Use a WSGI server like Gunicorn or uWSGI.
 
 ---
 
 ## Contributing
 
-1. Fork this repository.
-2. Create your feature branch: `git checkout -b feature/my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin feature/my-new-feature`
-5. Create a new Pull Request.
+1. **Fork** this repository.  
+2. **Create a Feature Branch** (`git checkout -b feature/my-new-feature`).  
+3. **Commit Changes** (`git commit -am 'Add some feature'`).  
+4. **Push** to the branch (`git push origin feature/my-new-feature`).  
+5. **Open a Pull Request** on this repo.
