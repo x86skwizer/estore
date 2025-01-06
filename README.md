@@ -12,7 +12,6 @@ A **fully-featured** Django E-Commerce application with shopping cart functional
 4. [Usage](#usage)
 5. [Deployment](#deployment)
 6. [Contributing](#contributing)
-7. [License](#license)
 
 ---
 
