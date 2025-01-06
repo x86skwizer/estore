@@ -109,8 +109,8 @@ Below is a high-level overview of the project’s structure:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/x86skwizer/django-ecommerce.git
-   cd django-ecommerce
+   git clone https://github.com/x86skwizer/estore.git
+   cd estore
    ```
 
 2. **Create and Activate a Virtual Environment** (Recommended)
