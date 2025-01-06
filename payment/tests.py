@@ -49,6 +49,7 @@ class PaymentViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'payment/process_failed.html')
 
+
 class PaymentModelsTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='anotheruser', password='testpass')
@@ -89,6 +90,7 @@ class PaymentModelsTests(TestCase):
         address = ShippingAddress.objects.filter(user=self.user).first()
         self.assertIsNotNone(address)
         self.assertEqual(address.shipping_full_name, '')
+
 
 class StripeTests(TestCase):
     """

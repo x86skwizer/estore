@@ -56,7 +56,8 @@ class CoreViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'contact.html')
         self.assertIn('Thanks John Doe!', response.content.decode())
-        
+
+   
 class CoreModelsTests(TestCase):
     def test_category_str(self):
         cat = Category.objects.create(name="Sample")
